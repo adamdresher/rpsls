@@ -12,13 +12,9 @@ configure do
   set :session_secret, '7444a1c99002fe7f03d719e47da9e5dcf46618d4026576b5f866c77f2f9ffecd'
 end
 
-def game_started?
-  session[:players]
-end
-
 def setup_game(rounds)
-  session['rounds'] = {}
-  (1..10).each { |round| session[round] = "" } # fix the range here.  should be 'rounds'
+  session[:rounds] = {}
+  (1..rounds.to_i).each { |round| session[:rounds][round] = "" } # fix the range here.  should be 'rounds'
 
   session[:players] = {}
 
@@ -31,25 +27,38 @@ end
 
 def game_winner
   if game_started?
-    session[:players].each do |player|
-      return player if winner?(player)
+    session[:players].each do |player, records|
+      return player if winner?(records)
     end
   end
 end
 
 def winner?(player)
-  session[:rounds].divmod(player[:score]) == [2, 1]
+  player_score = player[:score]
+
+  return nil if player_score.zero?
+  session[:rounds].size.divmod(player_score) == [2, 1]
 end
 
 get '/' do
   erb :index
 end
 
+get '/new_game' do
+  setup_game(params[:rounds])
+
+  redirect '/play'
+end
+
+get '/play' do
+  erb :play
+end
+
 post '/play' do
   if game_winner
     # set flash message for game winner
     # redirect to '/winner'
-  elsif game_started?
+  else
     # add user's move choice to records
     # select random choice for computer
     # add computer's choice to records
@@ -61,13 +70,8 @@ post '/play' do
 
     # set flash message for winner
     session[:message] = "#{round_winner} has won this round!"
-  else
-    setup_game(params[:rounds])
   end
 
   redirect '/play'
 end
 
-get '/play' do
-  erb :play
-end
