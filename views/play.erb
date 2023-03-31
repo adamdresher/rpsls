@@ -1,3 +1,35 @@
+<div class="center">
+  <h4>SCOREBOARD</h4>
+</div>
+  <table class="center">
+    <tr>
+      <td>You</td>
+      <td>Computer</td>
+    </tr>
+    <tr>
+      <td><%= session[:players][:user][:score] %></td>
+      <td><%= session[:players][:computer][:score] %></td>
+    </tr>
+  </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <ul>
   <% session.each do |k, v| %>
     <li><%= k %>: <%= v %></li>
