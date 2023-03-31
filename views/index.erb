@@ -1,0 +1,28 @@
+<h1 class="welcome">Welcome to RPSLS!</h1>
+
+<form id="start_game" class="welcome" action="/play" method="get">
+  <label for="start_game">Select how many rounds you want to play:</label>
+  <input form="start_game" type="number" name="rounds" min="1" max="99" step="2" value="1">
+  <button form="start_game" type="submit">Play</button>
+</form>
+
+<div>
+  <div>
+    <h4>Rules:</h4>
+    <p>This game uses the same rules as Rock, Paper, Scissors.  The difference is that there are added choices (Lizard and Spock).</p>
+  </div>
+  <div>
+    <ul>
+      <li>Scissors cuts paper</li> 
+      <li>Paper covers rock</li>
+      <li>Rock crushes lizard</li>
+      <li>Lizard poisons Spock</li>
+      <li>Spock smashes scissors</li>
+      <li>Scissors decapitates lizard</li>
+      <li>Lizard eats paper</li>
+      <li>Paper disproves Spock</li>
+      <li>Spock vaporizes rock</li>
+      <li>Rock crushes scissors</li>
+    </ul>
+  </div>
+</div>
