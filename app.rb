@@ -7,6 +7,19 @@ require 'yaml'
 require 'pry'
 require 'byebug'
 
+VALID_CHOICES = %w(rock paper scissors lizard spock)
+
+RPSLS = ["Scissors cut paper",
+         "Paper covers rock",
+         "Rock crushes lizard",
+         "Lizard poisons Spock",
+         "Spock smashes scissors",
+         "Scissors decapitate lizard",
+         "Lizard eats paper",
+         "Paper disproves Spock",
+         "Spock vaporizes rock",
+         "Rock crushes scissors"]
+
 configure do
   enable :sessions
   set :session_secret, '7444a1c99002fe7f03d719e47da9e5dcf46618d4026576b5f866c77f2f9ffecd'
@@ -14,7 +27,8 @@ end
 
 def setup_game(rounds)
   session[:rounds] = {}
-  (1..rounds.to_i).each { |round| session[:rounds][round] = "" } # fix the range here.  should be 'rounds'
+  (1..rounds.to_i).each { |round| session[:rounds][round] = nil }
+  session[:current_round] = 1
 
   session[:players] = {}
 
@@ -26,11 +40,10 @@ def setup_game(rounds)
 end
 
 def game_winner
-  if game_started?
-    session[:players].each do |player, records|
-      return player if winner?(records)
-    end
+  session[:players].each do |player, records|
+    return player if winner?(records)
   end
+  nil
 end
 
 def winner?(player)
@@ -38,6 +51,43 @@ def winner?(player)
 
   return nil if player_score.zero?
   session[:rounds].size.divmod(player_score) == [2, 1]
+end
+
+def computer_move
+  VALID_CHOICES.sample
+end
+
+def current_round_description
+  user_move = session[:players][:user][:moves].last
+  computer_move = session[:players][:computer][:moves].last
+
+  RPSLS.each do |str|
+    words = str.downcase.split
+    return "It's a tie!" if words.count(user_move) == 2
+    return str if words.count(user_move) == 1 && words.count(computer_move) == 1
+  end
+end
+
+def record_match_moves_and_description!
+  session[:players][:user][:moves] << params[:move]
+  session[:players][:computer][:moves] << computer_move
+  session[:rounds][session[:current_round]] = current_round_description
+end
+
+def determine_round_winner
+  user_move = session[:players][:user][:moves].last
+  computer_move = session[:players][:computer][:moves].last
+
+  RPSLS.each do |str|
+    words = str.downcase.split
+    return :user if words.first == user_move && words.last == computer_move 
+    return :computer if words.first == computer_move && words.last == user_move 
+  end
+  nil
+end
+
+def update_scores!(winner)
+  session[:players][winner][:score] += 1
 end
 
 get '/' do
@@ -62,14 +112,15 @@ post '/play' do
     # add user's move choice to records
     # select random choice for computer
     # add computer's choice to records
-    session[:players][:user][:move] += params[:move]
-    session[:players][:computer][:move] += computer_move
 
     # evaluate round's winner
-    round_winner = "ROUND WINNER"
+    record_match_moves_and_description!
+    session[:current_round] += 1
+    winner = determine_round_winner
+    update_scores!(winner)
 
     # set flash message for winner
-    session[:message] = "#{round_winner} has won this round!"
+    # session[:message] = "#{round_winner} has won this round!"
   end
 
   redirect '/play'
