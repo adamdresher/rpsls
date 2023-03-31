@@ -1,21 +1,49 @@
 <div class="center">
   <h4>SCOREBOARD</h4>
-</div>
-  <table class="center">
-    <tr>
+
+  <table class="score">
+    <tr class="score">
       <td>You</td>
       <td>Computer</td>
     </tr>
-    <tr>
+    <tr class="score">
       <td><%= session[:players][:user][:score] %></td>
       <td><%= session[:players][:computer][:score] %></td>
     </tr>
   </table>
+</div>
 
+<br>
 
-
-
-
+<div>
+  <table class="gameboard" class="center">
+    <tr>
+      <td class="game_sides"><p>ROCK</p></td>
+      <td class="game_center"></td> 
+      <td class="game_sides"></td>
+    </tr>
+    <tr>
+      <td class="game_sides"><p>PAPER</p></td>
+      <td class="game_center"></td> 
+      <td class="game_sides"></td>
+    </tr>
+    <tr>
+      <td class="game_sides"><p>SCISSORS</p></td>
+      <td class="game_center">???</td> 
+      <td class="game_sides">Beep boop bing! ...computing...</td>
+    </tr>
+    <tr>
+      <td class="game_sides"><p>LIZARD</p></td>
+      <td class="game_center"></td> 
+      <td class="game_sides"></td>
+    </tr>
+    <tr>
+      <td class="game_sides"><p>SPOCK</p></td>
+      <td class="game_center"></td> 
+      <td class="game_sides"></td>
+    </tr>
+  </table>
+</div>
 
 
 

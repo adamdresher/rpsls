@@ -13,12 +13,43 @@ body {
 }
 
 td {
-  border-bottom: 1px solid #aaa;
-  padding: 10px;
+  padding: 15px;
   text-align: center;
 }
 
-td:nth-child(even), th:nth-child(even) {
+table.score {
+  border: 1px solid white;
+  border-collapse: collapse;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+tr:nth-child(odd).score {
+  background-color: #bbb;
+}
+
+tr:nth-child(even).score {
+  background-color: #eee;
+}
+
+td.game_center {
+  width: 50%;
+}
+
+td.game_sides {
+  width: 20%;
+  border-left: 1px solid #888;
+  border-right: 1px solid #888;
+}
+
+table.gameboard {
+  border: 1px solid gray;
+  border-collapse: collapse;
   background-color: #ddd;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%
 }
 
