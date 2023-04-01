@@ -27,7 +27,7 @@ end
 
 def setup_game
   session[:history] = []
-  session[:current_round] = 1
+  session[:current_round] = 0
 
 
   session[:players] = {}

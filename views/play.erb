@@ -1,68 +1,60 @@
 <table>
   <tr>  
-    <td class="center">
-      <h4>SCOREBOARD</h4>
+    <td>
+      
+      <div class="center">
+        <h4>SCOREBOARD</h4>
 
-      <table class="score">
-        <tr class="score">
-          <td>You</td>
-          <td>Computer</td>
-        </tr>
-        <tr class="score">
-          <td><%= session[:players][:you][:score] %></td>
-          <td><%= session[:players][:computer][:score] %></td>
-        </tr>
-      </table>
+        <table class="score">
+          <tr class="score">
+            <td>You</td>
+            <td>Computer</td>
+          </tr>
+          <tr class="score">
+            <td><%= session[:players][:you][:score] %></td>
+            <td><%= session[:players][:computer][:score] %></td>
+          </tr>
+        </table>
+      </div>
+
+      <div>
+        <ul>
+          <% session[:history].each do |round| %>
+            <li><%= round %></li>
+          <% end %>
+        </ul>
+      </div>
     </td>
+
     <td>
       <table class="gameboard" class="center">
         <tr class="game_center">
-          <td></td>
-          <td></td>
-          <td>Beep boop bing! ...computing...</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr class="game_center">
-          <td></td>
-          <td></td>
-          <td>???</td> 
-          <td></td>
-          <td></td>
+          <td>
+            <img src="/images/computer.png" alt="Beep boop bing! ...computing ..." width="128" height="128">
+          </td>
         </tr>
         <tr class="game_center">
           <td>
-            <form id="rock" action="/play" method="post">
-              <input type="hidden" name="move" value="rock">
-              <input form="rock" type="image" src="images/rock.png" width="64" height="64" alt="submit" /></td>
-            </form>
+            <img src="/images/vs.gif" alt="Let's get ready to rumble!!!" width="64" height="64">
           </td>
-          <td>
-            <form id="paper" action="/play" method="post">
-              <input type="hidden" name="move" value="paper">
-              <input form="paper" type="image" src="images/paper.png" width="64" height="64" alt="submit" /></td>
-            </form>
-          </td>
-          <td>
-            <form id="scissors" action="/play" method="post">
-              <input type="hidden" name="move" value="scissors">
-              <input form="scissors" type="image" src="images/scissors.png" width="64" height="64" alt="submit" /></td>
-            </form>
-          </td>
-          <td>
-            <form id="lizard" action="/play" method="post">
-              <input type="hidden" name="move" value="lizard">
-              <input form="lizard" type="image" src="images/lizard.png" width="64" height="64" alt="submit" /></td>
-            </form>
-          </td>
-          <td>
-            <form id="spock" action="/play" method="post">
-              <input type="hidden" name="move" value="spock">
-              <input form="spock" type="image" src="images/spock.png" width="64" height="64" alt="submit" /></td>
-            </form>
-          </td>
+        </tr>
+        <tr class="game_center">
+          <table>
+            <tr>
+              <% VALID_CHOICES.each do |choice| %>
+                <td>
+                  <form id="<%= choice %>" action="/play" method="post">
+                    <input type="hidden" name="move" value="<%= choice %>">
+                    <input form="<%= choice %>" type="image" src="images/<%= choice %>.png" width="64" height="64" alt="submit" /></td>
+                  </form>
+                </td>
+              <% end %>
+            </tr> 
+          </table>
+
         </tr>
       </table>
+
     </td>
   </tr>
 </table>
