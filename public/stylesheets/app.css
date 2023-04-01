@@ -1,4 +1,7 @@
-html {
+.message {
+  background-color: yellow;
+  padding: 10px;
+  text-align: center;
 }
 
 body {
@@ -38,10 +41,6 @@ tr:nth-child(even).score {
 
 td.game_center {
   width: 50%;
-}
-
-td.game_sides {
-  width: 20%;
 }
 
 table.gameboard {

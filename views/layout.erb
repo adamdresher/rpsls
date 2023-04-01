@@ -4,6 +4,11 @@
   <head>
     <title>RPSLS</title>
     <link rel="stylesheet" href="/stylesheets/app.css" type="text/css">
+    <% if session[:message] %>
+      <% session.delete(:message).each do |message| %>
+        <p class="message"><%= message %></p>
+      <% end %>
+    <% end %>
   </head>
   <body>
     <%= yield %>
