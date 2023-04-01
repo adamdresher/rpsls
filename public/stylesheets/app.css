@@ -43,6 +43,10 @@ td.game_center {
   width: 50%;
 }
 
+td.game_sides {
+  width: 5%;
+}
+
 table.gameboard {
   border-collapse: collapse;
   text-align: center;
