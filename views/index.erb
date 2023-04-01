@@ -1,4 +1,11 @@
 <div class="padded">
+  <table class="center">
+    <tr>
+      <% VALID_CHOICES.each do |choice| %>
+        <td><img src="/images/<%= choice %>.png" width="48"></td>
+      <% end %>
+    </tr>
+  </table>
   <h1 class="center">Welcome to RPSLS!</h1>
 
   <form id="start_game" class="center" action="/new_game" method="get">

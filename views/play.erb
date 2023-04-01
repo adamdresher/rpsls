@@ -1,80 +1,71 @@
-<div class="center">
-  <h4>SCOREBOARD</h4>
+<table>
+  <tr>  
+    <td class="center">
+      <h4>SCOREBOARD</h4>
 
-  <table class="score">
-    <tr class="score">
-      <td>You</td>
-      <td>Computer</td>
-    </tr>
-    <tr class="score">
-      <td><%= session[:players][:user][:score] %></td>
-      <td><%= session[:players][:computer][:score] %></td>
-    </tr>
-  </table>
-</div>
-
-<br>
-<div>
-  <table class="gameboard" class="center">
-    <tr>
-      <td class="game_sides">
-        <form id="rock" action="/play" method="post">
-          <input type="hidden" name="move" value="rock">
-          <input form="rock" type="image" src="images/rock.png" width="64" height="64" alt="submit" /></td>
-        </form>
-      </td>
-      <td class="game_center"></td> 
-      <td class="game_sides"></td>
-    </tr>
-    <tr>
-      <td class="game_sides">
-        <form id="paper" action="/play" method="post">
-          <input type="hidden" name="move" value="paper">
-          <input form="paper" type="image" src="images/paper.png" width="64" height="64" alt="submit" /></td>
-        </form>
-      </td>
-      <td class="game_center"></td> 
-      <td class="game_sides"></td>
-    </tr>
-    <tr>
-      <td class="game_sides">
-        <form id="scissors" action="/play" method="post">
-          <input type="hidden" name="move" value="scissors">
-          <input form="scissors" type="image" src="images/scissors.png" width="64" height="64" alt="submit" /></td>
-        </form>
-      </td>
-      <td class="game_center">???</td> 
-      <td class="game_sides">Beep boop bing! ...computing...</td>
-    </tr>
-    <tr>
-      <td class="game_sides">
-        <form id="lizard" action="/play" method="post">
-          <input type="hidden" name="move" value="lizard">
-          <input form="lizard" type="image" src="images/lizard.png" width="64" height="64" alt="submit" /></td>
-        </form>
-      </td>
-      <td class="game_center"></td> 
-      <td class="game_sides"></td>
-    </tr>
-    <tr>
-      <td class="game_sides">
-        <form id="spock" action="/play" method="post">
-          <input type="hidden" name="move" value="spock">
-          <input form="spock" type="image" src="images/spock.png" width="64" height="64" alt="submit" /></td>
-        </form>
-      </td>
-      <td class="game_center"></td> 
-      <td class="game_sides"></td>
-    </tr>
-  </table>
-</div>
-
-<form id="rock" action="/play" method="post"></form>
-<form id="paper" action="/play" method="post"></form>
-<form id="scissors" action="/play" method="post"></form>
-<form id="lizard" action="/play" method="post"></form>
-<form id="spock" action="/play" method="post"></form>
-
+      <table class="score">
+        <tr class="score">
+          <td>You</td>
+          <td>Computer</td>
+        </tr>
+        <tr class="score">
+          <td><%= session[:players][:user][:score] %></td>
+          <td><%= session[:players][:computer][:score] %></td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <table class="gameboard" class="center">
+        <tr class="game_center">
+          <td></td>
+          <td></td>
+          <td>Beep boop bing! ...computing...</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr class="game_center">
+          <td></td>
+          <td></td>
+          <td>???</td> 
+          <td></td>
+          <td></td>
+        </tr>
+        <tr class="game_center">
+          <td>
+            <form id="rock" action="/play" method="post">
+              <input type="hidden" name="move" value="rock">
+              <input form="rock" type="image" src="images/rock.png" width="64" height="64" alt="submit" /></td>
+            </form>
+          </td>
+          <td>
+            <form id="paper" action="/play" method="post">
+              <input type="hidden" name="move" value="paper">
+              <input form="paper" type="image" src="images/paper.png" width="64" height="64" alt="submit" /></td>
+            </form>
+          </td>
+          <td>
+            <form id="scissors" action="/play" method="post">
+              <input type="hidden" name="move" value="scissors">
+              <input form="scissors" type="image" src="images/scissors.png" width="64" height="64" alt="submit" /></td>
+            </form>
+          </td>
+          <td>
+            <form id="lizard" action="/play" method="post">
+              <input type="hidden" name="move" value="lizard">
+              <input form="lizard" type="image" src="images/lizard.png" width="64" height="64" alt="submit" /></td>
+            </form>
+          </td>
+          <td>
+            <form id="spock" action="/play" method="post">
+              <input type="hidden" name="move" value="spock">
+              <input form="spock" type="image" src="images/spock.png" width="64" height="64" alt="submit" /></td>
+            </form>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 
 
 

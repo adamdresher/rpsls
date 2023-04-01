@@ -1,4 +1,8 @@
+html {
+}
+
 body {
+  background-color: #ffbea5;
   font-family: sans-serif;
 }
 
@@ -18,7 +22,6 @@ td {
 }
 
 table.score {
-  border: 1px solid white;
   border-collapse: collapse;
   text-align: center;
   margin-left: auto;
@@ -39,14 +42,10 @@ td.game_center {
 
 td.game_sides {
   width: 20%;
-  border-left: 1px solid #888;
-  border-right: 1px solid #888;
 }
 
 table.gameboard {
-  border: 1px solid gray;
   border-collapse: collapse;
-  background-color: #ddd;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
