@@ -25,10 +25,12 @@ configure do
   set :session_secret, '7444a1c99002fe7f03d719e47da9e5dcf46618d4026576b5f866c77f2f9ffecd'
 end
 
-def setup_game(rounds)
-  session[:rounds] = {}
-  (1..rounds.to_i).each { |round| session[:rounds][round] = nil }
+def setup_game
+  # session[:rounds] = {}
+  session[:history] = {} # update references
+  # (1..rounds.to_i).each { |round| session[:rounds][round] = nil }
   session[:current_round] = 1
+
 
   session[:players] = {}
 
@@ -48,9 +50,12 @@ end
 
 def winner?(player)
   player_score = player[:score]
+  # winning_score = (session[:rounds].size / 2) + 1
+  winning_score = session[:winner_needs]
 
-  return nil if player_score.zero?
-  session[:rounds].size.divmod(player_score) == [2, 1]
+  # return false if player_score.zero?
+  # session[:rounds].size.divmod(player_score) == [2, 1]
+  player_score >= winning_score
 end
 
 def computer_move
@@ -63,15 +68,15 @@ def current_round_description
 
   RPSLS.each do |str|
     words = str.downcase.split
-    return "It's a tie!" if words.count(user_move) == 2
+    return "It's a tie!" if user_move == computer_move
     return str if words.count(user_move) == 1 && words.count(computer_move) == 1
   end
 end
 
-def record_match_moves_and_description!
+def record_round_moves_and_description!
   session[:players][:user][:moves] << params[:move]
   session[:players][:computer][:moves] << computer_move
-  session[:rounds][session[:current_round]] = current_round_description
+  session[:history][session[:current_round]] = current_round_description
 end
 
 def determine_round_winner
@@ -95,7 +100,8 @@ get '/' do
 end
 
 get '/new_game' do
-  setup_game(params[:rounds])
+  session[:winner_needs] = (params[:rounds].to_i / 2) + 1
+  setup_game
 
   redirect '/play'
 end
@@ -105,20 +111,19 @@ get '/play' do
 end
 
 post '/play' do
+  # add user's move choice to records
+  # select random choice for computer
+  # add computer's choice to records
+
+  # evaluate round's winner
+  record_round_moves_and_description!
+  session[:current_round] += 1
+  winner = determine_round_winner
+  update_scores!(winner) if winner
   if game_winner
     # set flash message for game winner
-    # redirect to '/winner'
+    redirect '/winner'
   else
-    # add user's move choice to records
-    # select random choice for computer
-    # add computer's choice to records
-
-    # evaluate round's winner
-    record_match_moves_and_description!
-    session[:current_round] += 1
-    winner = determine_round_winner
-    update_scores!(winner)
-
     # set flash message for winner
     # session[:message] = "#{round_winner} has won this round!"
   end
@@ -126,3 +131,6 @@ post '/play' do
   redirect '/play'
 end
 
+get '/winner' do
+  "Congratulations to the winner!"
+end

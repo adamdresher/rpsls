@@ -9,9 +9,10 @@
   <h1 class="center">Welcome to RPSLS!</h1>
 
   <form id="start_game" class="center" action="/new_game" method="get">
-    <label for="start_game">Select how many rounds you want to play:</label>
+    <label for="start_game">Select how many rounds you want to play*:</label>
     <input form="start_game" type="number" name="rounds" min="1" max="99" step="2" value="1">
     <button form="start_game" type="submit">Play</button>
+    <p>* Warning: ties may result in addtional rounds =)</p>
   </form>
 
   <div>
