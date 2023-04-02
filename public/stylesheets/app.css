@@ -17,35 +17,68 @@ body {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-}
-
-/* the below is wip */
-
-.scoreboard {
   vertical-align: top;
 }
 
-table.scoreboard_title {
-  border-collapse: collapse;
-  text-align: center;
+.align_top {
+  vertical-align: top;
+}
+
+p.tips {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.scoreboard {
+  margin-right: 50px;
+}
+
+table.scoreboard {
   margin-left: auto;
   margin-right: auto;
 }
 
-tr:nth-child(odd).scoreboard_rows {
-  background-color: #bbb;
+table.scoreboard.title {
+  border-collapse: collapse;
+}
+
+td.scoreboard.title {
+  vertical-align: center;
+  font-size: 32px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+td.scoreboard.user {
+  background-color: #9ae49a;
+}
+
+td.scoreboard.computer {
+  background-color: #f27a86;
+}
+
+tr:nth-child(odd).history {
   text-align: left;
 }
 
-tr:nth-child(even).scoreboard_rows {
-  background-color: #eee;
+tr:nth-child(even).history {
+  background-color: #e4af9a;
   text-align: left;
 }
 
-table.gameboard {
+td.history {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+table.choices {
   border-collapse: collapse;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  width: 80%
+  width: 100%
 }

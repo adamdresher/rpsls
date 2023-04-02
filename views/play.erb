@@ -4,31 +4,42 @@
   <table class="center">
     <tr>
 
-      <td class="scoreboard">
-        <div>
+      <td class="align_top">
+        <div class="scoreboard">
           <h4>SCOREBOARD</h4>
-          <table class="scoreboard_title">
-            <tr class="scoreboard_title">
-              <td>You</td>
-              <td>Computer</td>
+          <p class="tips">The winner is the first to <%=session[:winner_needs] %>.</p>
+
+          <table class="scoreboard">
+            <tr>
+              <td>
+                <table class="scoreboard title">
+                  <tr>
+                    <td class="scoreboard title user">
+                      <img src="/images/robot.png" width="32" height="32"> <%= session[:players][:you][:score] %>
+                    </td>
+                    <td class="scoreboard title computer">
+                      <img src="/images/computer.png" width="32" height="32"> <%= session[:players][:computer][:score] %>
+                    </td>
+                  </tr>
+                </table>
+              </td>
             </tr>
-            <tr class="scoreboard_title">
-              <td><%= session[:players][:you][:score] %></td>
-              <td><%= session[:players][:computer][:score] %></td>
-            </tr>
-          </table>
-        </div>
-        <div>
-          <ul>
-            <% session[:history].each do |round| %>
-              <li class="scoreboard-rows"><%= round %></li>
+
+            <% session[:history].each_with_index do |round, idx| %>
+              <tr class="history">
+                <td class="history"><%= "#{idx+1}: #{round}" %></td>
+              </tr>
             <% end %>
-          </ul>
+          </table>
+
         </div>
       </td>
 
-      <td>
+      <td class="align_top">
         <table>
+          <tr>
+            <td><br></td><!-- refactor padding -->
+          </tr>
           <tr>
             <td>
               <img src="/images/robot.png" width="128" height="128">
@@ -43,11 +54,14 @@
           
           <tr>
             <td></td>
-            <td>What will you choose?</td>
+            <td><br><br> <!-- refactor padding -->
+              <p class="tips">What will you choose?</p>
+            </td>
             <td></td>
           </tr>
+
           <tr>
-            <table>
+            <table class="choices">
               <tr>
                 <% VALID_CHOICES.each do |choice| %>
                   <td>
