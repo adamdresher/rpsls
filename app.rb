@@ -92,7 +92,7 @@ def winner?(player)
 end
 
 def winning_message(player, round_or_game)
-  if player == 'you'
+  if player == :you
     "You have won the #{round_or_game}!"
   else
     "The computer has won the #{round_or_game}!"
@@ -124,7 +124,7 @@ post '/play' do
     redirect '/winner'
   else
     session[:message] = [session[:history].last]
-    session[:message] << "\n#{winning_message(winner, 'round')}" if winner
+    session[:message] << winning_message(winner, 'round') if winner
   end
 
   redirect '/play'

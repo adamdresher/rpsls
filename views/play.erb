@@ -1,71 +1,72 @@
-<table>
-  <tr>  
-    <td>
-      
-      <div class="center">
-        <h4>SCOREBOARD</h4>
+<div class="center">
+  <h2>Rock Paper Scissors Lizard Spock</h2>
 
-        <table class="score">
-          <tr class="score">
-            <td>You</td>
-            <td>Computer</td>
-          </tr>
-          <tr class="score">
-            <td><%= session[:players][:you][:score] %></td>
-            <td><%= session[:players][:computer][:score] %></td>
-          </tr>
-        </table>
-      </div>
+  <table class="center">
+    <tr>
 
-      <div>
-        <ul>
-          <% session[:history].each do |round| %>
-            <li><%= round %></li>
-          <% end %>
-        </ul>
-      </div>
-    </td>
-
-    <td>
-      <table class="gameboard" class="center">
-        <tr class="game_center">
-          <td>
-            <img src="/images/robot.png" width="128" height="128">
-          </td>
-          <td>
-            <img src="/images/vs.gif" alt="Let's get ready to rumble!!!" width="64" height="64">
-          </td>
-          <td>
-            <img src="/images/computer.png" alt="Beep boop bing! ...computing ..." width="128" height="128">
-          </td>
-        </tr>
-        
-        <tr>
-          <td></td>
-          <td class="game_center">What will you choose?</td>
-          <td></td>
-        </tr>
-        <tr class="game_center">
-          <table>
-            <tr>
-              <% VALID_CHOICES.each do |choice| %>
-                <td>
-                  <form id="<%= choice %>" action="/play" method="post">
-                    <input type="hidden" name="move" value="<%= choice %>">
-                    <input form="<%= choice %>" type="image" src="images/<%= choice %>.png" width="64" height="64" alt="submit" /></td>
-                  </form>
-                </td>
-              <% end %>
-            </tr> 
+      <td class="scoreboard">
+        <div>
+          <h4>SCOREBOARD</h4>
+          <table class="scoreboard_title">
+            <tr class="scoreboard_title">
+              <td>You</td>
+              <td>Computer</td>
+            </tr>
+            <tr class="scoreboard_title">
+              <td><%= session[:players][:you][:score] %></td>
+              <td><%= session[:players][:computer][:score] %></td>
+            </tr>
           </table>
-        </tr>
+        </div>
+        <div>
+          <ul>
+            <% session[:history].each do |round| %>
+              <li class="scoreboard-rows"><%= round %></li>
+            <% end %>
+          </ul>
+        </div>
+      </td>
 
-      </table>
-    </td>
+      <td>
+        <table>
+          <tr>
+            <td>
+              <img src="/images/robot.png" width="128" height="128">
+            </td>
+            <td>
+              <img src="/images/vs.gif" alt="Let's get ready to rumble!!!" width="64" height="64">
+            </td>
+            <td>
+              <img src="/images/computer.png" alt="Beep boop bing! ...computing ..." width="128" height="128">
+            </td>
+          </tr>
+          
+          <tr>
+            <td></td>
+            <td>What will you choose?</td>
+            <td></td>
+          </tr>
+          <tr>
+            <table>
+              <tr>
+                <% VALID_CHOICES.each do |choice| %>
+                  <td>
+                    <form id="<%= choice %>" action="/play" method="post">
+                      <input type="hidden" name="move" value="<%= choice %>">
+                      <input form="<%= choice %>" type="image" src="images/<%= choice %>.png" width="64" height="64" alt="submit" /></td>
+                    </form>
+                  </td>
+                <% end %>
+              </tr> 
+            </table>
+          </tr>
 
-  </tr>
-</table>
+        </table>
+      </td>
 
+    </tr>
+  </table>
+</div>
 
 
 

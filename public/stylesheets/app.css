@@ -19,32 +19,27 @@ body {
   margin-right: auto;
 }
 
-td {
-  padding: 15px;
-  text-align: center;
+/* the below is wip */
+
+.scoreboard {
+  vertical-align: top;
 }
 
-table.score {
+table.scoreboard_title {
   border-collapse: collapse;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
 
-tr:nth-child(odd).score {
+tr:nth-child(odd).scoreboard_rows {
   background-color: #bbb;
+  text-align: left;
 }
 
-tr:nth-child(even).score {
+tr:nth-child(even).scoreboard_rows {
   background-color: #eee;
-}
-
-td.game_center {
-  width: 50%;
-}
-
-td.game_sides {
-  width: 5%;
+  text-align: left;
 }
 
 table.gameboard {
@@ -54,4 +49,3 @@ table.gameboard {
   margin-right: auto;
   width: 80%
 }
-
