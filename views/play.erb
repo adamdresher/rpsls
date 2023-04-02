@@ -1,98 +1,40 @@
-<div class="center">
-  <h2>Rock Paper Scissors Lizard Spock</h2>
+<table class="gameboard">
+  <tr>
+    <td><br></td><!-- refactor padding -->
+  </tr>
+  <tr>
+    <td>
+    <img src="/images/<%= session[:user_profile] %>.png" width="128" height="128">
+    </td>
+    <td>
+      <img src="/images/vs.gif" alt="Let's get ready to rumble!!!" width="64" height="64">
+    </td>
+    <td>
+      <img src="/images/computer.png" alt="Beep boop bing! ...computing ..." width="128" height="128">
+    </td>
+  </tr>
+  
+  <tr>
+    <td></td>
+    <td><br><br> <!-- refactor padding -->
+      <p class="important tips">What will you choose?</p>
+    </td>
+    <td></td>
+  </tr>
 
-  <table class="center">
-    <tr>
+  <tr>
+    <table class="gameboard choices">
+      <tr>
+        <% VALID_CHOICES.each do |choice| %>
+          <td>
+            <form id="<%= choice %>" action="/play" method="post">
+              <input type="hidden" name="move" value="<%= choice %>">
+              <input form="<%= choice %>" type="image" src="images/<%= choice %>.png" width="64" height="64" alt="submit" />
+            </form>
+          </td>
+        <% end %>
+      </tr> 
+    </table>
+  </tr>
 
-      <td class="align_top">
-        <div class="scoreboard">
-          <h4>SCOREBOARD</h4>
-          <p class="tips">The winner is the first to <%=session[:winner_needs] %>.</p>
-
-          <table class="scoreboard">
-            <tr>
-              <td>
-                <table class="scoreboard title">
-                  <tr>
-                    <td class="scoreboard title user">
-                      <img src="/images/robot.png" width="32" height="32"> <%= session[:players][:you][:score] %>
-                    </td>
-                    <td class="scoreboard title computer">
-                      <img src="/images/computer.png" width="32" height="32"> <%= session[:players][:computer][:score] %>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-
-            <% session[:history].each_with_index do |round, idx| %>
-              <tr class="history">
-                <td class="history"><%= "#{idx+1}: #{round}" %></td>
-              </tr>
-            <% end %>
-          </table>
-
-        </div>
-      </td>
-
-      <td class="align_top">
-        <table>
-          <tr>
-            <td><br></td><!-- refactor padding -->
-          </tr>
-          <tr>
-            <td>
-              <img src="/images/robot.png" width="128" height="128">
-            </td>
-            <td>
-              <img src="/images/vs.gif" alt="Let's get ready to rumble!!!" width="64" height="64">
-            </td>
-            <td>
-              <img src="/images/computer.png" alt="Beep boop bing! ...computing ..." width="128" height="128">
-            </td>
-          </tr>
-          
-          <tr>
-            <td></td>
-            <td><br><br> <!-- refactor padding -->
-              <p class="tips">What will you choose?</p>
-            </td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <table class="choices">
-              <tr>
-                <% VALID_CHOICES.each do |choice| %>
-                  <td>
-                    <form id="<%= choice %>" action="/play" method="post">
-                      <input type="hidden" name="move" value="<%= choice %>">
-                      <input form="<%= choice %>" type="image" src="images/<%= choice %>.png" width="64" height="64" alt="submit" /></td>
-                    </form>
-                  </td>
-                <% end %>
-              </tr> 
-            </table>
-          </tr>
-
-        </table>
-      </td>
-
-    </tr>
-  </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-<ul>
-  <% session.each do |k, v| %>
-    <li><%= k %>: <%= v %></li>
-  <% end %>
-</ul>
+</table>

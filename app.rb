@@ -9,6 +9,8 @@ require 'byebug'
 
 VALID_CHOICES = %w(rock paper scissors lizard spock)
 
+USER_PROFILES = %w(caticorn dog monkey plant robot programmer)
+
 RPSLS = ["Scissors cut paper",
          "Paper covers rock",
          "Rock crushes lizard",
@@ -20,12 +22,20 @@ RPSLS = ["Scissors cut paper",
          "Spock vaporizes rock",
          "Rock crushes scissors"]
 
+TAUNT = { lose: ["Sad face.",
+                 "Well... we can't all be winners.",
+                 "Give it another go?"],
+          win: ["Congratulations!",
+                "But you prooobably couldn't pull that off again.",
+                "That was a bit of luck, don't you think?"]
+        }
+
 configure do
   enable :sessions
   set :session_secret, '7444a1c99002fe7f03d719e47da9e5dcf46618d4026576b5f866c77f2f9ffecd'
 end
 
-def setup_game
+def setup_game(user_profile)
   session[:history] = []
   session[:current_round] = 0
 
@@ -37,6 +47,8 @@ def setup_game
     session[:players][player][:moves] = []
     session[:players][player][:score] = 0
   end
+
+  session[:user_profile] = user_profile if user_profile
 end
 
 def computer_move
@@ -74,6 +86,7 @@ def determine_round_winner
     return :you if words.first == user_move && words.last == computer_move 
     return :computer if words.first == computer_move && words.last == user_move 
   end
+  binding.pry
   nil
 end
 
@@ -103,15 +116,15 @@ get '/' do
   erb :index
 end
 
-get '/new_game' do
+post '/new_game' do
   session[:winner_needs] = (params[:rounds].to_i / 2) + 1
-  setup_game
+  setup_game(params[:user_profile])
 
   redirect '/play'
 end
 
 get '/play' do
-  erb :play
+  erb :play, layout: :board
 end
 
 post '/play' do
@@ -119,6 +132,7 @@ post '/play' do
   session[:current_round] += 1
   winner = determine_round_winner
   update_scores!(winner) if winner
+
   if game_winner
     session[:message] = [winning_message(game_winner, 'game')]
     redirect '/winner'
@@ -131,5 +145,11 @@ post '/play' do
 end
 
 get '/winner' do
-  erb :winner
+  @taunt = if game_winner == :computer
+             TAUNT[:lose]
+           else
+             TAUNT[:win]
+           end
+
+  erb :winner, layout: :board
 end

@@ -1,1 +1,32 @@
-<p>Wubba lubba dub dub!</p>
+<table class="gameboard">
+  <tr>
+    <td>
+      <% @taunt.each do |line| %>
+        <p class="tips"><%= line %></p>
+      <% end %>
+    </td>
+  </tr> 
+  <tr>
+    <td><br><br></td> <!-- refactor padding -->
+  </tr>
+  <tr>
+    <td>
+      <form id="start_game" class="center" action="/new_game" method="post">
+        <label for="start_game">How many rounds do you want to play this time?</label>
+        <input form="start_game" type="number" name="rounds" min="1" max="99" step="2" value="1">
+        <button form="start_game" type="submit">Play Again</button>
+  </form>
+    </td>
+  </tr>
+  <tr>
+    <table class="gameboard choices">
+      <tr>
+        <% VALID_CHOICES.each do |choice| %>
+          <td>
+            <img src="images/<%= choice %>.png" width="64" height="64">
+          </td>
+        <% end %>
+      </tr> 
+    </table>
+  </tr>
+</table>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <title>RPSLS</title>
+    <link rel="stylesheet" href="/stylesheets/app.css" type="text/css">
+
+    <% if session[:message] %>
+      <% session.delete(:message).each do |message| %>
+        <p class="message"><%= message %></p>
+      <% end %>
+    <% end %>
+
+  </head>
+  <body>
+    <div class="center">
+      <h1>Rock Paper Scissors Lizard Spock</h1>
+
+      <table class="mainboard center">
+        <tr>
+
+          <td class="align_top">
+            <div class="scoreboard">
+              <h2>SCOREBOARD</h2>
+              <p class="tips">The winner is the first to <%=session[:winner_needs] %>.</p>
+
+              <table class="scoreboard">
+                <tr>
+                  <td>
+                    <table class="scoreboard title">
+                      <tr>
+                        <td class="scoreboard title user">
+                          <img src="/images/<%= session[:user_profile] %>.png" width="32" height="32"> <%= session[:players][:you][:score] %>
+                        </td>
+                        <td class="scoreboard title computer">
+                          <img src="/images/computer.png" width="32" height="32"> <%= session[:players][:computer][:score] %>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <% session[:history].each_with_index do |round, idx| %>
+                  <tr class="history">
+                    <td class="history"><%= "#{idx+1}: #{round}" %></td>
+                  </tr>
+                <% end %>
+              </table>
+
+            </div>
+          </td>
+
+          <td class="align_top">
+
+            <%= yield %>
+
+          </td>
+
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
